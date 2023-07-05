@@ -1,0 +1,27 @@
+hardware:
+  device: cuda 
+
+model:
+  model_dimensions: 16
+  decoder_layers: 1
+  attention_heads: 4
+  vocab_size: 50257
+  parameters:
+
+training:
+  batch_size: 8
+  sequence_length: 32
+  n_epochs: 2
+  learning_rate: 0.001
+  optimizer: Adam
+  loss_function: CrossEntropyLoss
+  dropout_rate: 0
+  grad_clip: off
+
+parameters:
+  load:
+    should_load: True
+    path: ../params/test_run.pth
+  save:
+    should_save: True 
+    path: ../params/test_run.pth
