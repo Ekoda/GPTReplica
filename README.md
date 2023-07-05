@@ -1,6 +1,6 @@
 Work in progress.
 
-Built upon the foundations of the EssentialTransformer project, SimplifiedGPT employs the power of PyTorch library to implement a GPT (Generative Pretrained Transformer) model with decoder-only architecture. This project is the natural progression from the EssentialTransformer, moving from implementing a transformer from scratch to harnessing the efficiency and optimization of PyTorch.
+Built upon the foundations of the EssentialTransformer project, GPTessence employs the power of PyTorch library to implement a GPT (Generative Pretrained Transformer) model with decoder-only architecture. This project is the natural progression from the EssentialTransformer, moving from implementing a transformer from scratch to harnessing the efficiency and optimization of PyTorch.
 
 In other words, EssentialTransformer was an exploration into the intricate mechanics of the transformer model, SimplifiedGPT uses the existing tools in the PyTorch library to streamline the implementation.
 
