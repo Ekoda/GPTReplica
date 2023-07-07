@@ -4,7 +4,7 @@ GPTessence employs the power of PyTorch to implement a GPT (Generative Pretraine
 
 In other words, EssentialTransformer was an exploration into the intricate mechanics of the transformer model, GPTessence uses the existing tools in the PyTorch library to streamline the implementation.
 
-On a personal note this is a place for me to explore ideas and use for reference for future projects.
+On a personal note this is a place for me to explore ideas and use for reference for future projects. The exploration folder contains my personal notes. 
 
 ---
 ## Example

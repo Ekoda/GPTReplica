@@ -1,4 +1,5 @@
 import torch
+import time
 import numpy as np
 import torch.nn as nn
 import torch.optim as optim
@@ -40,6 +41,7 @@ class GPT(nn.Module):
 
         self.to(self.device)
         for epoch in range(n_epochs):
+            start_time = time.time()
             self.train()
             epoch_loss = 0 
             for i, batch in enumerate(dataloader):
@@ -53,7 +55,9 @@ class GPT(nn.Module):
                     torch.nn.utils.clip_grad_norm_(self.parameters(), grad_clip)
                 optimizer.step() 
                 epoch_loss += loss.item()
-            print(f'Epoch {epoch}: Loss = {epoch_loss / len(dataloader)}')
+            end_time = time.time()
+            epoch_time = end_time - start_time
+            print(f'Epoch {epoch}: Loss = {epoch_loss / len(dataloader)}, Time = {epoch_time:.3f}s')
             if should_save:
                 torch.save(self.state_dict(), save_path)
 

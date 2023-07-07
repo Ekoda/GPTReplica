@@ -98,21 +98,24 @@ def load_data(data: torch.Tensor, config: dict) -> DataLoader:
     Returns
     -------
     dataloader : torch.utils.data.DataLoader
-        A DataLoader wrapping the input and target data, ready for batched processing.
+        A DataLoader wrapping the input and target data of shape (batch_size, sequence_length), ready for batched processing.
     """
     seq_len = config["training"]["sequence_length"]
     batch_size = config["training"]["batch_size"]
 
+    # Trim data to ensure it is divisible by the sequence length
     num_batches = len(data) // seq_len
     data = data[:num_batches*seq_len]
-    data = data.reshape(-1, seq_len)
+    data = data.reshape(-1, seq_len) 
 
-    inputs = data[:, :-1] 
-    targets = data[:, 1:]
+    inputs = data[:, :-1] # All but the last position
+    targets = data[:, 1:] # Shift by one position
 
+    # Convert to PyTorch tensors
     inputs = inputs.clone().detach().long()
     targets = targets.clone().detach().long()
 
+    # Wrap in a TensorDataset and DataLoader
     dataset = TensorDataset(inputs, targets)
     dataloader = DataLoader(dataset, batch_size=batch_size)
 
