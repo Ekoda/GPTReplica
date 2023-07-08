@@ -6,6 +6,6 @@ venv/
 env/
 .vscode/
 data/tokens/*
-
+params/*
 fleeting_notes.ipynb
 .ipynb_checkpoints/

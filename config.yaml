@@ -1,26 +1,28 @@
 hardware:
   device: cuda 
 
+data:
+  tokenizer: gpt2
+
 model:
-  model_dimensions: 32
-  decoder_layers: 1
-  attention_heads: 2
-  vocab_size: 50257
+  model_dimensions: 256 # GPT-3 uses 128 * layers
+  layers: 2
+  attention_heads: 4
 
 training:
-  batch_size: 8
-  sequence_length: 32
-  n_epochs: 10
-  learning_rate: 0.001
+  batch_size: 16
+  sequence_length: 64
+  n_epochs: 5
+  learning_rate: 6e-4
   optimizer: Adam
   loss_function: CrossEntropyLoss
-  dropout_rate: 0
+  dropout_rate: 0.1
   grad_clip: off
 
 parameters:
   load:
     should_load: True
-    path: ../params/test_run.pth
+    path: ../params/test_256.pth
   save:
     should_save: True
-    path: ../params/test_run.pth
+    path: ../params/test_256.pth

@@ -6,7 +6,6 @@ import numpy as np
 class PositionalEncoding(nn.Module):
     def __init__(self, model_dimensions: int, dropout: float, max_len: int = 5000):
         super().__init__()
-        
         self.dropout = nn.Dropout(p=dropout)
         position = torch.arange(max_len).unsqueeze(1)
         div_term = torch.exp(torch.arange(0, model_dimensions, 2) * (-np.log(10000.0) / model_dimensions))
