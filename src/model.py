@@ -62,6 +62,7 @@ class GPT(nn.Module):
                     torch.nn.utils.clip_grad_norm_(self.parameters(), grad_clip)
                 optimizer.step() 
                 train_loss += loss.item()
+            train_loss = train_loss / len(train_dataloader)
 
             # Evaluation phase
             self.eval()
@@ -73,13 +74,16 @@ class GPT(nn.Module):
                     output = self.forward(inputs)
                     loss = criterion(output.view(-1, self.vocab_size), targets.view(-1))
                     val_loss += loss.item()
+            val_loss = val_loss / len(val_dataloader)
 
+            # Display results and save model
             end_time = time.time()
             epoch_time = end_time - start_time
-            print(f'Epoch {epoch}:\n'
-                f'\tTrain Loss: {train_loss / len(train_dataloader)}\n'
-                f'\tVal Loss: {val_loss / len(val_dataloader)}\n'
-                f'\tTime: {epoch_time:.3f}s'
+            print(
+                f'Epoch {epoch}:\n'
+                    f'\tTrain Loss: {train_loss}\n'
+                    f'\tVal Loss: {val_loss}\n'
+                    f'\tTime: {epoch_time:.3f}s'
                 )
             
             if should_save:
