@@ -3,6 +3,7 @@ hardware:
 
 data:
   tokenizer: gpt2
+  train_val_ratio: 0.9
 
 model:
   model_dimensions: 256 # GPT-3 uses 128 * layers
@@ -12,11 +13,11 @@ model:
 training:
   batch_size: 16
   sequence_length: 64
-  n_epochs: 5
-  learning_rate: 6e-4
+  n_epochs: 2
+  learning_rate: 1e-4
   optimizer: Adam
   loss_function: CrossEntropyLoss
-  dropout_rate: 0.1
+  dropout_rate: 0.2
   grad_clip: off
 
 parameters:

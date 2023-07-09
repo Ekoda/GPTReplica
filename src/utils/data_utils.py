@@ -5,8 +5,9 @@ import numpy as np
 import yaml
 
 
-def split_data(data: str, train_ratio: float = 0.9) -> tuple[str, str]:
+def split_data(data: str, config) -> tuple[str, str]:
     """Split data into training and validation sets."""
+    train_ratio = config["data"]["train_val_ratio"]
     n = len(data)
     train_data = data[:int(n * train_ratio)]
     val_data = data[int(n * train_ratio):]
