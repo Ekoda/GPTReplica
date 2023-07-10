@@ -6,24 +6,28 @@ data:
   train_val_ratio: 0.9
 
 model:
-  model_dimensions: 256 # GPT-3 uses 128 * layers
-  layers: 2
-  attention_heads: 4
+  model_dimensions: 512
+  layers: 4
+  attention_heads: 8
 
 training:
   batch_size: 16
-  sequence_length: 64
-  n_epochs: 2
-  learning_rate: 1e-4
-  optimizer: Adam
+  sequence_length: 512
+  n_epochs: 1
+  learning_rate: 6e-4
+  optimizer: AdamW
   loss_function: CrossEntropyLoss
-  dropout_rate: 0.2
-  grad_clip: off
+  weight_decay: 0.1
+  beta_1: 0.9
+  beta_2: 0.95
+  epsilon: 1e-8
+  dropout_rate: 0
+  grad_clip: 1.0
 
 parameters:
   load:
     should_load: True
-    path: ../params/test_256.pth
+    path: ../params/512.pth
   save:
     should_save: True
-    path: ../params/test_256.pth
+    path: ../params/512.pth

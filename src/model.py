@@ -37,35 +37,38 @@ class GPT(nn.Module):
         config = self.config
 
         print("-----------------")
-
-        print("\nHardware Configuration:")
+        print("Hardware:")
         print(f"\tDevice: {config['hardware']['device']}")
         
-        print("\nData Configuration:")
+        print("\nData")
         print(f"\tTokenizer: {config['data']['tokenizer']}")
         print(f"\tTrain / Validation ratio: {self.config['data']['train_val_ratio']}")
         
-        print("\nModel Configuration:")
+        print("\nModel:")
         print(f"\tModel dimensions: {self.model_dimensions}")
         print(f"\tNumber of layers: {self.n_layers}")
         print(f"\tNumber of attention heads: {self.n_heads}")
         print(f"\tVocabulary size: {self.vocab_size}")
         print(f"\tTotal trainable parameters: {total_params}")
         
-        print("\nTraining Configuration:")
+        print("\nTraining:")
         print(f"\tBatch size: {config['training']['batch_size']}")
         print(f"\tSequence length: {config['training']['sequence_length']}")
         print(f"\tNumber of training epochs: {config['training']['n_epochs']}")
         print(f"\tLearning rate: {float(config['training']['learning_rate'])}")
         print(f"\tOptimizer: {config['training']['optimizer']}")
         print(f"\tLoss function: {config['training']['loss_function']}")
+        print(f"\tWeight decay: {config['training']['weight_decay']}")
+        print(f"\tBeta 1: {config['training']['beta_1']}")
+        print(f"\tBeta 2: {config['training']['beta_2']}")
+        print(f"\tEpsilon: {config['training']['epsilon']}")
         print(f"\tDropout rate: {self.dropout_rate}")
         print(f"\tGradient clipping: {config['training']['grad_clip']}")
 
         if config["parameters"]["load"]["should_load"]:
             print(f"\nLoaded parameters from: {config['parameters']['load']['path']}")
         if config["parameters"]["save"]["should_save"]:
-            print(f"\nModel parameters will be saved at: {config['parameters']['save']['path']}")
+            print(f"Model parameters will be saved at: {config['parameters']['save']['path']}")
         print("-----------------\n")
 
     def train_model(self, train_dataloader, val_dataloader, config, grad_clip=None):
@@ -73,7 +76,13 @@ class GPT(nn.Module):
         # Load config
         optimizer_class = getattr(optim, config["training"]["optimizer"])
         criterion_class = getattr(nn, config["training"]["loss_function"])
-        optimizer = optimizer_class(self.parameters(), lr=float(config["training"]["learning_rate"]))
+        optimizer = optimizer_class(
+            self.parameters(),
+            lr=float(config["training"]["learning_rate"]),
+            weight_decay=float(config["training"]["weight_decay"]),
+            betas=(config["training"]["beta_1"], config["training"]["beta_2"]),
+            eps=float(config["training"]["epsilon"])
+            )
         criterion = criterion_class()
         grad_clip = config["training"]["grad_clip"]
         n_epochs = config["training"]["n_epochs"]

@@ -7,7 +7,7 @@ from src.components.layer_norm import LayerNorm
 class Decoder(nn.Module):
     def __init__(self, model_dimension: int, num_heads: int, dropout: float):
         super().__init__()
-        self.attention = MultiQueryAttention(model_dimension, num_heads, dropout)
+        self.attention = MultiQueryAttention(model_dimension, num_heads, dropout) # MultiHeadSelfAttention(model_dimension, num_heads, dropout)
         self.feed_forward = FeedForwardNetwork(model_dimension, dropout)
         self.attention_pre_norm = LayerNorm(model_dimension)
         self.feed_forward_pre_norm = LayerNorm(model_dimension)
